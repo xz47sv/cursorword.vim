@@ -24,7 +24,7 @@ function! s:cursorword_add_callback(...) abort
     endif
 
     let cword=expand('<cword>')
-    if cword == s:previous_match
+    if cword ==# s:previous_match
         return
     endif
 
@@ -34,7 +34,7 @@ function! s:cursorword_add_callback(...) abort
     let max_len=get(g:, 'cursorword_max_len', 32)
     if len(cword) != 0 && (max_len == 0 || len(cword) <= max_len)
     let s:match_id=
-        \matchadd('CursorWord', '\V\<' . escape(cword, '/\') . '\>', -1)
+        \matchadd('CursorWord', '\V\C\<' . escape(cword, '/\') . '\>', -1)
     endif
 endfunction
 
