@@ -17,7 +17,7 @@ endfunction
 function! s:cursorword_add_callback(...) abort
     call s:timers_stop()
 
-    " return if no worder character under cursor
+    " return if no word character under cursor
     if match(strcharpart(getline('.'), col('.') - 1, 1), '\m\w') == -1
         call s:cursorword_delete()
         return
