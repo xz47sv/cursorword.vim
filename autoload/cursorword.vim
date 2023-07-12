@@ -43,7 +43,7 @@ function! s:cursorword_add() abort
     if delay == 0
         call s:cursorword_add_callback()
     else
-        call timer_stop(s:timers[1])
+        call timer_stop(s:timers[0])
         let s:timers[0]=timer_start(delay, 's:cursorword_add_callback')
         let s:timers[1]=timer_start(delay * 5, 's:cursorword_delete')
     endif
