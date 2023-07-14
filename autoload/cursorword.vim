@@ -1,4 +1,3 @@
-let s:match_id=-1
 let s:previous_match=''
 let s:timers=[ -1, -1 ]
 
@@ -11,7 +10,7 @@ function! s:cursorword_delete(...) abort
     call s:timers_stop()
 
     let s:previous_match=''
-    silent! call matchdelete(s:match_id)
+    silent! call matchdelete(w:match_id)
 endfunction
 
 function! s:cursorword_add_callback(...) abort
@@ -33,7 +32,7 @@ function! s:cursorword_add_callback(...) abort
 
     let max_len=get(g:, 'cursorword_max_len', 32)
     if len(cword) != 0 && (max_len == 0 || len(cword) <= max_len)
-    let s:match_id=
+    let w:match_id=
         \matchadd('CursorWord', '\V\C\<' . escape(cword, '/\') . '\>', -1)
     endif
 endfunction
