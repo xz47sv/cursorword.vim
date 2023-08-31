@@ -49,7 +49,7 @@ function! s:cursorword_add() abort
 endfunction
 
 function! cursorword#setup() abort
-    hi CursorWord cterm=underline gui=underline
+    hi default CursorWord cterm=underline gui=underline
     augroup cursorword
         au!
         au BufEnter,CursorMoved,CursorHold * call s:cursorword_add()
