@@ -1,5 +1,3 @@
-if !get(g:, 'cursorword_autoload')
-    finish
+if get(g:, 'cursorword_autoload')
+    call cursorword#setup()
 endif
-
-call cursorword#setup()
