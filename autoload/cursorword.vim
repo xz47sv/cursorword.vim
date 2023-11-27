@@ -38,6 +38,10 @@ function! s:cursorword_add_callback(...) abort
 endfunction
 
 function! s:cursorword_add() abort
+    if get(b:, 'cursorword_disable', get(g:, 'cursorword_disable'))
+        return
+    endif
+
     let delay=get(g:, 'cursorword_delay', 0)
     if delay == 0
         call s:cursorword_add_callback()
