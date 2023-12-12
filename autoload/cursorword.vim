@@ -1,21 +1,12 @@
 let s:previous_match=''
-let s:timers=[ -1, -1 ]
-
-function! s:timers_stop() abort
-    call timer_stop(s:timers[0])
-    call timer_stop(s:timers[1])
-endfunction
+let s:timer=-1
 
 function! s:cursorword_delete(...) abort
-    call s:timers_stop()
-
     let s:previous_match=''
     silent! call matchdelete(w:match_id)
 endfunction
 
 function! s:cursorword_add_callback(...) abort
-    call s:timers_stop()
-
     " return if no word character under cursor
     if match(strcharpart(getline('.'), col('.') - 1, 1), '\m\w') == -1
         call s:cursorword_delete()
@@ -46,9 +37,8 @@ function! s:cursorword_add() abort
     if delay == 0
         call s:cursorword_add_callback()
     else
-        call timer_stop(s:timers[0])
-        let s:timers[0]=timer_start(delay, 's:cursorword_add_callback')
-        let s:timers[1]=timer_start(delay * 5, 's:cursorword_delete')
+        call timer_stop(s:timer)
+        let s:timer=timer_start(delay, 's:cursorword_add_callback')
     endif
 endfunction
 
