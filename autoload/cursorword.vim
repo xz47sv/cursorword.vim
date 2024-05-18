@@ -24,8 +24,8 @@
 "OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 "SOFTWARE.
 
-let s:previous_match=''
-let s:timer=-1
+let s:previous_match = ''
+let s:timer = -1
 
 function! s:cursorword_delete() abort
     let s:previous_match=''
@@ -39,7 +39,7 @@ function! s:cursorword_add_callback(...) abort
         return
     endif
 
-    let cword=expand('<cword>')
+    let cword = expand('<cword>')
     if cword ==# s:previous_match
         return
     endif
@@ -47,10 +47,10 @@ function! s:cursorword_add_callback(...) abort
     call s:cursorword_delete()
     let s:previous_match=cword
 
-    let max_len=get(g:, 'cursorword_max_len', 32)
+    let max_len = get(g:, 'cursorword_max_len', 32)
     if len(cword) != 0 && (max_len == 0 || len(cword) <= max_len)
-    let w:cursorword_match_id=
-        \matchadd('CursorWord', '\V\C\<' . escape(cword, '/\') . '\>', -1)
+    let w:cursorword_match_id =
+        \matchadd('CursorWord', '\m\V\C\<' . escape(cword, '/\') . '\>', -1)
     endif
 endfunction
 
@@ -59,12 +59,12 @@ function! s:cursorword_add() abort
         return
     endif
 
-    let delay=get(g:, 'cursorword_delay', 0)
+    let delay = get(g:, 'cursorword_delay', 0)
     if delay == 0
         call s:cursorword_add_callback()
     else
         call timer_stop(s:timer)
-        let s:timer=timer_start(delay, 's:cursorword_add_callback')
+        let s:timer = timer_start(delay, 's:cursorword_add_callback')
     endif
 endfunction
 
