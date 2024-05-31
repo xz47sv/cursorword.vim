@@ -69,6 +69,10 @@ function! s:cursorword_add() abort
 endfunction
 
 function! cursorword#setup() abort
+    if !exists('g:cursorword_delay')
+        let g:cursorword_delay = 100
+    endif
+
     hi default CursorWord cterm=underline gui=underline
     augroup cursorword
         au!
